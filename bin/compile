@@ -205,6 +205,4 @@ echo "export PATH=\"\$HOME/.gem/ruby/1.9.1/bin:\$PATH\"" > $build_dir/.profile.d
     https://nomnom.heroku.com/?request_id=$REQUEST_ID \
     > /dev/null
     
-)  
-    
-&
+) &
