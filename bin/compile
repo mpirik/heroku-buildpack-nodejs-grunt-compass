@@ -190,9 +190,6 @@ echo "export PATH=\"\$HOME/.gem/ruby/1.9.1/bin:\$PATH\"" > $build_dir/.profile.d
     $build_dir/node_modules/.bin/grunt heroku:$NODE_ENV
     
     rm -R $build_dir/node_modules/grunt-cli
-    
-    cp old-package.json package.json;
-    rm old-package.json;
   fi
 )
 
@@ -200,7 +197,7 @@ echo "export PATH=\"\$HOME/.gem/ruby/1.9.1/bin:\$PATH\"" > $build_dir/.profile.d
 # Use a subshell so failures won't break the build.
 (
   curl \
-    --data @$build_dir/package.json \
+    --data @$build_dir/old_package.json \
     --fail \
     --silent \
     --request POST \
