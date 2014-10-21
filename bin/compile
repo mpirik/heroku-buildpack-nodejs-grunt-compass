@@ -57,8 +57,6 @@ cd $build_dir
 
 is_gruntfile_present= [ -f $build_dir/grunt.js ] || [ -f $build_dir/Gruntfile.js ] || [ -f $build_dir/Gruntfile.coffee ];
 
-cp package.json old_package.json
-
 if $is_gruntfile_present; then
   status "Found Gruntfile"
   status "Augmenting package.json with grunt and grunt-cli"
