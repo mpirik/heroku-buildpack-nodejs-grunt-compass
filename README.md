@@ -12,7 +12,7 @@ If no Gruntfile exists, the buildpacks simply skips the grunt step and executes 
 
 Specific changes
 ----------------
-This fork handles a unique problem with sails.
+This fork handles a unique problem with sails v 0.10.0;
 
 Due to recent changes with npm; sub-modules cannot include a parent's include modules. This build pack auto-includes grunt, and grunt-cli. Sails, REQUIRES grunt-cli is present. Rather then fork sails; this build pack will install grunt-cli as a dependency, install all the modules, and then move grunt-cli to sails.
 
