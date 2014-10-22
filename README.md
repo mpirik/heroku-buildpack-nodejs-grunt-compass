@@ -10,6 +10,13 @@ Using this buildpack you do not need to commit the results of your Grunt tasks (
 After all the default Node.js and npm build tasks have finished, the buildpack checks if a Gruntfile (`Gruntfile.js`, `Gruntfile.coffee`or `grunt.js`) exists and executes the `heroku` task by running `grunt heroku`. For details about grunt and how to define tasks, check out the [offical documentation](http://gruntjs.com/getting-started). You must add grunt to the npm dependencies in your `package.json` file.
 If no Gruntfile exists, the buildpacks simply skips the grunt step and executes like the standard Node.js buildpack.
 
+Specific changes
+----------------
+This fork handles a unique problem with sails.
+
+Due to recent changes with npm; sub-modules cannot include a parent's include modules. This build pack auto-includes grunt, and grunt-cli. Sails, REQUIRES grunt-cli is present. Rather then fork sails; this build pack will install grunt-cli as a dependency, install all the modules, and then move grunt-cli to sails.
+
+THIS IS A VERY SPECIFIC USE CASE. If your module REQUIRES grunt-cli by name; it will fail. A well designed buildpack could solve this, and it is something I'd like to look into in the future.
 
 How it Works
 ------------
