@@ -202,7 +202,7 @@ echo "export PATH=\"\$HOME/.gem/ruby/1.9.1/bin:\$PATH\"" > $build_dir/.profile.d
       # require grunt-cli, and npm recently prevented child modules from installing
       # modules parents have installed. So; we let our buildpack use grunt-cli, then
       # we move it to sail's modules.
-      mv $build_dir/node_modules/grunt-cli $build_dir/node_modules/sails/node_modules
+     # mv $build_dir/node_modules/grunt-cli $build_dir/node_modules/sails/node_modules
     fi
   fi
 )
