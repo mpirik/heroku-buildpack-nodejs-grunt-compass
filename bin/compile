@@ -81,26 +81,23 @@ else
   status "No Gruntfile (grunt.js, Gruntfile.js, Gruntfile.coffee) found"
 fi
 
-status "Clean node_modules directory"
-rm -rf $build_dir/node_modules
-
 # If node_modules directory is checked into source control then
 # rebuild any native deps. Otherwise, restore from the build cache.
 if test -d $build_dir/node_modules; then
   status "Found existing node_modules directory; skipping cache"
   status "Rebuilding any native dependencies"
   npm rebuild 2>&1 | indent
-#elif test -d $cache_dir/node/node_modules; then
-#  status "Restoring node_modules directory from cache"
-#  cp -r $cache_dir/node/node_modules $build_dir/
-#
-#  status "Pruning cached dependencies not specified in package.json"
-#  npm prune 2>&1 | indent
-#
-#  if test -f $cache_dir/node/.heroku/node-version && [ $(cat $cache_dir/node/.heroku/node-version) != "$node_version" ]; then
-#    status "Node version changed since last build; rebuilding dependencies"
-#    npm rebuild 2>&1 | indent
-#  fi
+elif test -d $cache_dir/node/node_modules; then
+  status "Restoring node_modules directory from cache"
+  cp -r $cache_dir/node/node_modules $build_dir/
+
+  status "Pruning cached dependencies not specified in package.json"
+  npm prune 2>&1 | indent
+
+  if test -f $cache_dir/node/.heroku/node-version && [ $(cat $cache_dir/node/.heroku/node-version) != "$node_version" ]; then
+    status "Node version changed since last build; rebuilding dependencies"
+    npm rebuild 2>&1 | indent
+  fi
 
 fi
 
@@ -111,9 +108,6 @@ fi
     export_env_dir $env_dir
   fi
  
- status "Rebuilding npm" 
- npm rebuild 2>&1 | indent
-
   status "Installing dependencies"
   # Make npm output to STDOUT instead of its default STDERR
   npm install --userconfig $build_dir/.npmrc --production 2>&1 | indent
