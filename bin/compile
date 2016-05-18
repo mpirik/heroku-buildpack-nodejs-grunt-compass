@@ -188,28 +188,12 @@ echo "export PATH=\"\$HOME/.gem/ruby/1.9.1/bin:\$PATH\"" > $build_dir/.profile.d
       export_env_dir $env_dir
     fi
     
-#    npm install grunt
+#    status "Running grunt heroku:$NODE_ENV task"
+#    $build_dir/node_modules/.bin/grunt heroku:$NODE_ENV
 
-    status "Running grunt heroku:$NODE_ENV task"
-    $build_dir/node_modules/.bin/grunt heroku:$NODE_ENV
-    
-    if test -d $build_dir/node_modules/sails/node_modules/grunt-cli; then
-      status "Sails grunt-cli npm module is already present"
-    else
-      status "Sails grunt-cli npm module does not exist, move from the top level to sails folder"
-      # this is a Sails 10 specific action, both this buildpack and this submodule 
-      # require grunt-cli, and npm recently prevented child modules from installing
-      # modules parents have installed. So; we let our buildpack use grunt-cli, then
-      # we move it to sail's modules.
-     # mv $build_dir/node_modules/grunt-cli $build_dir/node_modules/sails/node_modules
-    fi
+    # remove the Gruntfile.js so that no grunt tasks for the project will be run at all.
+    status "Do not run grunt on deployed systems to remove the grunt file in the deployed image"
+    status "Removing $build_dir/Gruntfile.js"
+    rm $build_dir/Gruntfile.js
   fi
 )
-# we don't want to run grunt on the review or production nodes. 
-# all grunt related tasks should have been run during the custom build pack 
-# remove the Gruntfile.js so that no grunt tasks for the project will be run at all.
-if $is_gruntfile_present; then
-  status "Do not run grunt on deployed systems to remove the grunt file in the deployed image"
-  status "Removing $build_dir/Gruntfile.js"
-  rm $build_dir/Gruntfile.js
-fi
