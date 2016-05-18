@@ -187,9 +187,9 @@ echo "export PATH=\"\$HOME/.gem/ruby/1.9.1/bin:\$PATH\"" > $build_dir/.profile.d
       status "Exporting config vars to environment"
       export_env_dir $env_dir
     fi
-    
-#    status "Running grunt heroku:$NODE_ENV task"
-#    $build_dir/node_modules/.bin/grunt heroku:$NODE_ENV
+
+    status "Running grunt heroku:$NODE_ENV task"
+    $build_dir/node_modules/.bin/grunt heroku:$NODE_ENV
 
     # remove the Gruntfile.js so that no grunt tasks for the project will be run at all.
     status "Do not run grunt on deployed systems to remove the grunt file in the deployed image"
