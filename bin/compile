@@ -81,9 +81,6 @@ else
   status "No Gruntfile (grunt.js, Gruntfile.js, Gruntfile.coffee) found"
 fi
 
-status "Cleaning npm cache."
-npm cache -f clean
-
 # If node_modules directory is checked into source control then
 # rebuild any native deps. Otherwise, restore from the build cache.
 if test -d $build_dir/node_modules; then
