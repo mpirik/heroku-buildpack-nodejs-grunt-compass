@@ -202,6 +202,8 @@ echo "export PATH=\"\$HOME/.gem/ruby/1.9.1/bin:\$PATH\"" > $build_dir/.profile.d
 (
   if test -n "$DEPLOY_WEBHOOK_URL"; then
     status "Sending deployment webhook request: $DEPLOY_WEBHOOK_URL"
+    set +e # Ignore errors on the next command
     curl --request GET $DEPLOY_WEBHOOK_URL
+    set -e # Allow future errors to fail the script
   fi
 )
