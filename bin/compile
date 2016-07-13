@@ -199,9 +199,9 @@ echo "export PATH=\"\$HOME/.gem/ruby/1.9.1/bin:\$PATH\"" > $build_dir/.profile.d
 )
 
 # Try to send "post-build" webhook notification
-#(
-#  if $DEPLOY_WEBHOOK_URL; then
-#    status "Sending deployment webhook request: $DEPLOY_WEBHOOK_URL"
-#    curl --request GET $DEPLOY_WEBHOOK_URL
-#  fi
-#)
+(
+  if test -n "$DEPLOY_WEBHOOK_URL"; then
+    status "Sending deployment webhook request: $DEPLOY_WEBHOOK_URL"
+    curl --request GET $DEPLOY_WEBHOOK_URL
+  fi
+)
